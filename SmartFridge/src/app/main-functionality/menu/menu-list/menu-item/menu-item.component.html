@@ -1,31 +1,16 @@
-<!--<ul class="navbar navbar-nav">
 
-    <li
-
-      style="background: url({{menuItem.imagePath}}); background-size: cover; display: inline-block;"
-      (click)="onSelected()">
-      <span><h5 style="color: #ffffff">{{menuItem.name}}</h5></span>
-    </li>
-</ul>-->
-
-
-<!-- Load font awesome icons -->
-<!--
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
--->
-  <div class="subnav">
-    <a href="#">
-      <button
-        class="subnavbtn hiddentxt"
-        (mousemove)="onSelected()">{{menuItem.name}}
-        <i class="caret"></i>
-      </button>
-      <div class="hiddenimg"><img src="{{menuItem.imagePath}}" width="90" height="60" /></div>
-    </a>
-
+<div class="subnav">
+  <a href="#">
+    <button
+      class="subnavbtn hiddentxt"
+      (mousemove)="onSelected()">{{menuItem.name}}
+      <i class="caret"></i>
+    </button>
+    <div class="hiddenimg"><img src="{{menuItem.imagePath}}" width="90" height="60" /></div>
+  </a>
     <!--<div class="subnav-content">
       <a href="#">Company</a>
       <a href="#">Team</a>
       <a href="#">Careers</a>
     </div>-->
-  </div>
+</div>

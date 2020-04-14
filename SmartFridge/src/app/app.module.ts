@@ -6,6 +6,7 @@ import { RegLogComponent } from './reg-log/reg-log.component';
 import { ChooseFridgeComponent } from './choose-fridge/choose-fridge.component';
 import { MainFunctionalityComponent } from './main-functionality/main-functionality.component';
 import { HeaderComponent} from './header/header.component';
+import { DropdownDirective } from './shared/dropdown.directive';
 
 
 import { MenuComponent } from './main-functionality/menu/menu.component';
@@ -25,7 +26,7 @@ import { DetailSectionComponent } from './detail-section/detail-section.componen
     ChooseFridgeComponent,
     HeaderComponent,
     MainFunctionalityComponent,
-    DropdownDirective,
+    DropdownDirective
     MenuComponent,
     MenuItemComponent,
     MenuDetailComponent,

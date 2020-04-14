@@ -7,6 +7,9 @@ import { ChooseFridgeComponent } from './choose-fridge/choose-fridge.component';
 import { MainFunctionalityComponent } from './main-functionality/main-functionality.component';
 import { HeaderComponent} from './header/header.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import {FormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import {LoadingSpinnerComponent} from './shared/loading-spinner/loading-spinner.component';
 
 
 import { MenuComponent } from './main-functionality/menu/menu.component';
@@ -26,7 +29,7 @@ import { DetailSectionComponent } from './detail-section/detail-section.componen
     ChooseFridgeComponent,
     HeaderComponent,
     MainFunctionalityComponent,
-    DropdownDirective
+    DropdownDirective,
     MenuComponent,
     MenuItemComponent,
     MenuDetailComponent,
@@ -34,9 +37,12 @@ import { DetailSectionComponent } from './detail-section/detail-section.componen
     FridgeContainerComponent,
     WishListComponent,
     DetailSectionComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

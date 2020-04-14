@@ -7,6 +7,9 @@ import { ChooseFridgeComponent } from './choose-fridge/choose-fridge.component';
 import { MainFunctionalityComponent } from './main-functionality/main-functionality.component';
 import { HeaderComponent} from './header/header.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import {FormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import {LoadingSpinnerComponent} from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -15,10 +18,13 @@ import { DropdownDirective } from './shared/dropdown.directive';
     ChooseFridgeComponent,
     HeaderComponent,
     MainFunctionalityComponent,
-    DropdownDirective
+    DropdownDirective,
+    LoadingSpinnerComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

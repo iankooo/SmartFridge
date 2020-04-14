@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
+// @ts-ignore
 import {AuthService, ReglogResponseData} from './reg-log.service';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';

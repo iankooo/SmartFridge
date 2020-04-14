@@ -1,5 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuItem} from '../menu-item.model';
+import {MenuService} from '../menu.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -7,20 +8,10 @@ import {MenuItem} from '../menu-item.model';
   styleUrls: ['./menu-list.component.css']
 })
 export class MenuListComponent implements OnInit {
-  @Output() menuItemWasSelected = new EventEmitter<MenuItem>();
-  menuItems: MenuItem[] = [
-    new MenuItem('Fruits',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Culinary_fruits_front_view.jpg/800px-Culinary_fruits_front_view.jpg'),
-    new MenuItem('Vegetables',
-      'https://live.staticflickr.com/5472/9041948559_ae975fe9d8_b.jpg'),
-    new MenuItem('Dairy Products',
-      'https://live.staticflickr.com/4890/45490908735_f50da62742_b.jpg')
-  ];
-  constructor() { }
+  menuItems: MenuItem[];
+  constructor(private menuItemService: MenuService) { }
 
   ngOnInit(): void {
-  }
-  onMenuItemSelected(menuItem: MenuItem) {
-    this.menuItemWasSelected.emit(menuItem);
+    this.menuItems = this.menuItemService.getMenuItems();
   }
 }

@@ -13,6 +13,9 @@ import { MenuItemComponent } from './main-functionality/menu/menu-list/menu-item
 import { MenuDetailComponent } from './main-functionality/menu/menu-detail/menu-detail.component';
 import { MenuListComponent } from './main-functionality/menu/menu-list/menu-list.component';
 import {DropdownDirective} from './shared/dropdown.directive';
+import { FridgeContainerComponent } from './main-functionality/fridge-container/fridge-container.component';
+import { WishListComponent } from './main-functionality/wish-list/wish-list.component';
+import { DetailSectionComponent } from './detail-section/detail-section.component';
 
 
 @NgModule({
@@ -26,7 +29,10 @@ import {DropdownDirective} from './shared/dropdown.directive';
     MenuComponent,
     MenuItemComponent,
     MenuDetailComponent,
-    MenuListComponent
+    MenuListComponent,
+    FridgeContainerComponent,
+    WishListComponent,
+    DetailSectionComponent,
   ],
   imports: [
     BrowserModule

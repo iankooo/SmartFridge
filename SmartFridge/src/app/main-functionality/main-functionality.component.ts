@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-functionality.component.css']
 })
 export class MainFunctionalityComponent implements OnInit {
-
+  toggle = false;
+  feature = 'fridge-container';
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  onNavigate() {
+    this.toggle = !this.toggle;
+    if (this.toggle) {
+      this.feature = 'wish-list';
+    } else {
+      this.feature = 'fridge-container';
+    }
+  }
 }

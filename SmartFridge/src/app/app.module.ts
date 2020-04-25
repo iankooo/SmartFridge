@@ -21,6 +21,14 @@ import {DropdownDirective} from './shared/dropdown.directive';
 import { FridgeContainerComponent } from './main-functionality/fridge-container/fridge-container.component';
 import { WishListComponent } from './main-functionality/wish-list/wish-list.component';
 import { DetailSectionComponent } from './detail-section/detail-section.component';
+import { RouterModule, Routes} from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: RegLogComponent },
+  { path: 'reg-log', component: RegLogComponent },
+  { path: 'choose-fridge', component: ChooseFridgeComponent },
+  { path: 'main-page', component: MainFunctionalityComponent }
+];
 
 
 @NgModule({
@@ -43,7 +51,8 @@ import { DetailSectionComponent } from './detail-section/detail-section.componen
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

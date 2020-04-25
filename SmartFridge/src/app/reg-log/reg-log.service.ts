@@ -17,8 +17,15 @@ export interface ReglogResponseData {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  user = new Subject<User>();
+
+  // tslint:disable-next-line:variable-name
+  private _user = new Subject<User>();
+
   constructor(private http: HttpClient) {}
+
+  get user(): Subject<User> {
+    return this._user;
+  }
 
   signup(email: string, password: string) {
     return this.http.post<ReglogResponseData>(
@@ -72,7 +79,7 @@ export class AuthService {
       token,
       expirationDate
     );
-    this.user.next(user);
+    this._user.next(user);
   }
 
   private handleError(errorRes: HttpErrorResponse) {

@@ -15,7 +15,7 @@ export class RegLogComponent implements OnInit {
   isLoading = false;
   error: string = null;
 
-  constructor(private reglogService: AuthService) { }
+  constructor(private reglogService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -44,7 +44,7 @@ export class RegLogComponent implements OnInit {
       resData => {
         console.log(resData);
         this.isLoading = false;
-        // this.router.navigate(['/main-page']);
+        this.router.navigate(['/main-page']);
       }, errorMessage => {
         console.log(errorMessage);
         this.error = errorMessage;

@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button
+      class="btn btn-success"
+      style="margin:8px;"
+      (click)="onSearchSelected()"
+    >Add new fridge</button>
+
+    <button
+      class="btn btn-success"
+      style="margin:8px;"
+      (click)="onNewFridgeSelected()"
+    >Search for a fridge</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="">Choose a fridge:</h3>
+    <app-fridge-item
+      *ngFor="let fridgeEl of fridges"
+       [fridge]="fridgeEl"
+        (fridgeSelected)="onFridgeSelected(fridgeEl)" ></app-fridge-item>
+  </div>
+</div>

@@ -11,6 +11,11 @@ import { HttpClientModule } from '@angular/common/http';
 // @ts-ignore
 import {LoadingSpinnerComponent} from './shared/loading-spinner/loading-spinner.component';
 
+import { FridgeListComponent } from './choose-fridge/fridge-list/fridge-list.component';
+import { FridgeDetailComponent } from './choose-fridge/fridge-detail/fridge-detail.component';
+import {FridgeItemComponent} from './choose-fridge/fridge-list/firdge-item/fridge-item.component';
+
+
 
 import { MenuComponent } from './main-functionality/menu/menu.component';
 import { MenuItemComponent } from './main-functionality/menu/menu-list/menu-item/menu-item.component';
@@ -24,10 +29,9 @@ import { DetailSectionComponent } from './detail-section/detail-section.componen
 import { RouterModule, Routes} from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: '', component: RegLogComponent },
-  { path: 'reg-log', component: RegLogComponent },
-  { path: 'choose-fridge', component: ChooseFridgeComponent },
-  { path: 'main-page', component: MainFunctionalityComponent }
+  { path: 'reglog', component: RegLogComponent },
+  { path: 'chooseFridge', component: ChooseFridgeComponent },
+  { path: 'main', component: MainFunctionalityComponent }
 ];
 
 
@@ -36,6 +40,9 @@ const appRoutes: Routes = [
     AppComponent,
     RegLogComponent,
     ChooseFridgeComponent,
+    FridgeListComponent,
+    FridgeDetailComponent,
+    FridgeItemComponent,
     HeaderComponent,
     MainFunctionalityComponent,
     DropdownDirective,
@@ -52,8 +59,9 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot([])
+    RouterModule.forRoot(appRoutes)
   ],
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 export class RegLogComponent implements OnInit {
   isLoginMode = true;
   isLoading = false;
+  isForgettingMode = false;
   error: string = null;
 
   constructor(private reglogService: AuthService, private router: Router) { }
@@ -22,6 +23,10 @@ export class RegLogComponent implements OnInit {
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
+  }
+
+  iForgetItMode() {
+    this.isForgettingMode = !this.isForgettingMode;
   }
 
   onSubmit(form: NgForm) {
@@ -44,7 +49,7 @@ export class RegLogComponent implements OnInit {
       resData => {
         console.log(resData);
         this.isLoading = false;
-        this.router.navigate(['/main-page']);
+        this.router.navigate(['main']).then();
       }, errorMessage => {
         console.log(errorMessage);
         this.error = errorMessage;
@@ -54,5 +59,21 @@ export class RegLogComponent implements OnInit {
 
     form.reset();
   }
+
+  onResetSubmit(form: NgForm) {
+    if (!form.valid) {
+      return;
+    }
+    const resetEmail = form.value.email;
+    if (this.isForgettingMode) {
+      this.reglogService.forgetPassword(resetEmail);
+    }
+    form.reset();
+  }
+
+  getUrl() {
+    return 'url(../../assets/images/background/rgback.jpg)';
+  }
+
 
 }

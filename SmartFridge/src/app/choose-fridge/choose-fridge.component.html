@@ -1,1 +1,86 @@
-<p>choose-fridge works!</p>
+<div class="row">
+  <div class="col-md-5">
+    <app-fridge-list (fridgeWasSelected)="selectedFridge = $event"
+                     (optionSelected)="loadedOption = $event"
+    ></app-fridge-list>
+  </div>
+
+  <div class="col-md-7" *ngIf="loadedOption == 'list'">
+    <app-fridge-detail
+      *ngIf="selectedFridge"
+      [fridge]="selectedFridge"></app-fridge-detail>
+  </div>
+
+  <div class="col-md-7" *ngIf="loadedOption == 'new'">
+    <form class="text-center">
+      <h2>
+        <strong>Please insert datas:</strong>
+      </h2>
+      <div class="form-group">
+        <label for="fridgeName" ></label>
+        <input
+          type="text"
+          id="fridgeName"
+          class="form-control center-block"
+          style="width: 300px;"
+          ngModel
+          name="fridgeName"
+          required
+          email
+          placeholder="Fridge name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="owner" ></label>
+        <input
+          type="email"
+          id="owner"
+          class="form-control center-block"
+          style="width: 300px;"
+          ngModel
+          name="owner"
+          required
+          placeholder="Owner"
+        >
+      </div>
+      <br>
+      <div>
+        <button
+          class="btn btn-success"
+          type="submit"
+        > Search </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-md-7" *ngIf="loadedOption == 'search'">
+    <form class="text-center">
+      <h2>
+        <strong>Please insert the name of your fridge:</strong>
+      </h2>
+      <div class="form-group">
+        <label for="yourFridgeName" ></label>
+        <input
+          type="text"
+          id="yourFridgeName"
+          class="form-control center-block"
+          style="width: 300px;"
+          ngModel
+          name="yourFridgeName"
+          required
+          email
+          placeholder="Fridge name"
+        />
+      </div>
+      <br>
+      <div>
+        <button
+          class="btn btn-success"
+          type="submit"
+        > Add </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

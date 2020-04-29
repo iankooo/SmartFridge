@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   loadedFeature = 'register/login';
   selectedFoodUnit: FoodUnit;
   constructor(private foodUnitService: FoodUnitService) { }
+
   ngOnInit(): void {
     this.foodUnitService.foodUnitSelected
       .subscribe(
@@ -23,5 +24,9 @@ export class AppComponent implements OnInit {
   }
   onNavigate(feature: string) {
     this.loadedFeature = feature;
+  }
+
+  getUrl() {
+    return 'url(../../assets/images/background/rgback.jpg)';
   }
 }

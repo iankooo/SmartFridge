@@ -1,46 +1,114 @@
-<div class="row">
-  <div class="col-xs-12 col-md-6 col-md-offset-3">
+<div class="row" > <!-- [ngStyle]="{'background-image': getUrl()}">-->
+
+  <div class="col-xs-12 col-md-6 col-md-offset-3" >
     <div class="aler alert-danger" *ngIf="error">
       <p>{{ error }}</p>
     </div>
     <div *ngIf="isLoading" style="text-align: center;">
       <app-loading-spinner></app-loading-spinner>
     </div>
-    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
-      <div class="form-group">
-        <label for="email">E-Mail</label>
-        <input
-          type="email"
-          id="email"
-          class="form-control"
-          ngModel
-          name="email"
-          required
-          email
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          ngModel
-          name="password"
-          required
-          minlength="6"
-        >
-      </div>
-      <div>
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="!authForm.valid"
-        >{{ isLoginMode ? 'Login' : 'Sign Up'}}</button> |
-        <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
-          Switch to {{ isLoginMode ? 'Sign Up' : 'Login'}}
-        </button>
-      </div>
-    </form>
+
+      <form
+        class="text-center"
+        style="border-style: groove;
+                   border-width: 5px;
+                  "
+        #resetForm="ngForm"
+        (ngSubmit)="onResetSubmit(resetForm)"
+        *ngIf="!isLoading && isForgettingMode"
+      >
+        <h2>
+          <strong>Reset Password</strong>
+        </h2>
+        <div class="form-group">
+          <label for="email" ></label>
+          <input
+            type="email"
+            id="resetEmail"
+            class="form-control center-block"
+            style="width: 300px;"
+            ngModel
+            name="email"
+            required
+            email
+            placeholder="E-mail"
+          />
+        </div>
+        <br>
+        <div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!resetForm.valid"
+          >Send me an email!</button> |
+          <button class="btn btn-primary" (click)="iForgetItMode()" type="button">
+            Switch to Login
+          </button>
+        </div>
+        <br>
+      </form>
+
+      <form
+          class="text-center"
+          style="border-style: groove;
+                 border-width: 5px;
+                "
+          #authForm="ngForm"
+          (ngSubmit)="onSubmit(authForm)"
+          *ngIf="!isLoading && !isForgettingMode "
+          >
+        <h2>
+          <strong>{{ isLoginMode ? 'Login' : 'Sign Up'}}</strong>
+        </h2>
+        <div class="form-group">
+          <label for="email" ></label>
+          <input
+            type="email"
+            id="email"
+            class="form-control center-block"
+            style="width: 300px;"
+            ngModel
+            name="email"
+            required
+            email
+            placeholder="E-mail"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password" ></label>
+          <input
+            type="password"
+            id="password"
+            class="form-control center-block"
+            style="width: 300px;"
+            ngModel
+            name="password"
+            required
+            minlength="6"
+            placeholder="Password"
+          >
+        </div>
+        <br>
+        <div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!authForm.valid"
+          >{{ isLoginMode ? 'Login' : 'Sign Up'}}</button> |
+          <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
+            Switch to {{ isLoginMode ? 'Sign Up' : 'Login'}}
+          </button>
+        </div>
+        <br>
+        <div>
+          <button
+          *ngIf="isLoginMode"
+          class="btn btn-secondary btn-sm"
+          (click)="iForgetItMode()"
+          type="button">
+            I forget my password
+          </button>
+        </div>
+        <br>
+      </form>
   </div>
-</div>

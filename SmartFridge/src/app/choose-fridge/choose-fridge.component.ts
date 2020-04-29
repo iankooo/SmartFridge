@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Fridge} from './fridge.model';
 
 @Component({
   selector: 'app-choose-fridge',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./choose-fridge.component.css']
 })
 export class ChooseFridgeComponent implements OnInit {
+  selectedFridge: Fridge;
+  loadedOption: string;
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
 }

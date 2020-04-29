@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Subject, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {User} from './user.model';
+import {Router} from '@angular/router';
 
 // tslint:disable-next-line:no-empty-interface
 export interface ReglogResponseData {
@@ -21,7 +22,7 @@ export class AuthService {
   // tslint:disable-next-line:variable-name
   private _user = new Subject<User>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   get user(): Subject<User> {
     return this._user;
@@ -100,4 +101,13 @@ export class AuthService {
     }
     return throwError(errorMessage);
   }
+
+  forgetPassword(email: string){
+    // this.firebase.passwordReset(email);
+    console.log('Password reset email sent successfully');
+    this.router.navigate(['/main']);
+  }
+
+  // }
+
 }

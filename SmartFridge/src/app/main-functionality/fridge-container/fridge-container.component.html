@@ -1,1 +1,17 @@
+<div class="row">
+  <div class="col-xs-10">
+    <app-fridge-container-edit></app-fridge-container-edit>
+    <hr>
+    <ul class="list-group">
+      <a
+        class="list-group-item"
+        style="..."
+        *ngFor="let foodUnitDetailed of foodUnitsDetailed"
+      >
+        {{ foodUnitDetailed.name }} ({{ foodUnitDetailed.amount }}{{foodUnitDetailed.amountSize}})
+        <span class="badge list-group-item-info">{{foodUnitDetailed.expirationDate}}</span>
+      </a>
+    </ul>
+  </div>
+</div>
 

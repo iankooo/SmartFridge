@@ -6,7 +6,7 @@ import { RegLogComponent } from './reg-log/reg-log.component';
 import { ChooseFridgeComponent } from './choose-fridge/choose-fridge.component';
 import { MainFunctionalityComponent } from './main-functionality/main-functionality.component';
 import { HeaderComponent} from './header/header.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 // @ts-ignore
 import {LoadingSpinnerComponent} from './shared/loading-spinner/loading-spinner.component';
@@ -20,8 +20,13 @@ import { MenuListComponent } from './main-functionality/menu/menu-list/menu-list
 import {DropdownDirective} from './shared/dropdown.directive';
 import { FridgeContainerComponent } from './main-functionality/fridge-container/fridge-container.component';
 import { WishListComponent } from './main-functionality/wish-list/wish-list.component';
-import { DetailSectionComponent } from './detail-section/detail-section.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {FridgeContainerService} from './main-functionality/fridge-container/fridge-container.service';
+import { FridgeContainerEditComponent } from './main-functionality/fridge-container/fridge-container-edit/fridge-container-edit.component';
+import {WishListService} from './main-functionality/wish-list/wish-list.service';
 
 @NgModule({
   declarations: [
@@ -37,15 +42,20 @@ import { DetailSectionComponent } from './detail-section/detail-section.componen
     MenuListComponent,
     FridgeContainerComponent,
     WishListComponent,
-    DetailSectionComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    FridgeContainerEditComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    MatMomentDateModule,
+    MatDatepickerModule
   ],
-  providers: [],
+  providers: [FridgeContainerService, WishListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

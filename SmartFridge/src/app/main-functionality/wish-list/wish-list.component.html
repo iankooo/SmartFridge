@@ -1,1 +1,14 @@
+<div class="row">
+  <div class="col-xs-10">
+    <ul class="list-group">
+      <a
+        class="list-group-item"
+        style="..."
+        *ngFor="let foodUnitDetailed of foodUnitsDetailed"
+      >
+        {{ foodUnitDetailed.name }} ({{ foodUnitDetailed.amount }} - {{foodUnitDetailed.amountSize}})
+      </a>
+    </ul>
+  </div>
+</div>
 

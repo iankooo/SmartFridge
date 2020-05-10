@@ -12,7 +12,9 @@
   </div>
 
   <div class="col-md-7" *ngIf="loadedOption == 'new'">
-    <form class="text-center">
+    <form class="text-center"
+          #searchFridgeForm="ngForm"
+          (ngSubmit)="searchForAFridge(searchFridgeForm)">
       <h2>
         <strong>Please insert datas:</strong>
       </h2>
@@ -54,7 +56,9 @@
   </div>
 
   <div class="col-md-7" *ngIf="loadedOption == 'search'">
-    <form class="text-center">
+    <form class="text-center"
+          #newFridgeForm="ngForm"
+          (ngSubmit)="saveThisFridge(newFridgeForm)">
       <h2>
         <strong>Please insert the name of your fridge:</strong>
       </h2>

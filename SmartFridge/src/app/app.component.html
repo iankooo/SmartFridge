@@ -3,9 +3,7 @@
 <div class="container ">
   <div class="row ">
     <div class="col-md-12" >
-     <app-reg-log *ngIf="loadedFeature === 'register/login'"></app-reg-log>
-      <app-choose-fridge *ngIf="loadedFeature === 'choose-a-fridge'"></app-choose-fridge>
-      <app-main-functionality *ngIf="loadedFeature === 'main-page'"></app-main-functionality>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

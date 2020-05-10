@@ -1,7 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-
 import { Fridge } from '../fridge.model';
 import {FridgeStorageService} from '../../shared/fridge-storage.service';
+import {AngularFireDatabase, AngularFireList, AngularFireObject} from '@angular/fire/database';
+import {Global} from '../../shared/global';
+import {FridgeDetailComponent} from '../fridge-detail/fridge-detail.component';
 
 @Component({
   selector: 'app-fridge-list',
@@ -11,13 +13,15 @@ import {FridgeStorageService} from '../../shared/fridge-storage.service';
 export class FridgeListComponent implements OnInit {
   @Output() fridgeWasSelected = new EventEmitter<Fridge>();
   @Output() optionSelected = new EventEmitter<string>();
+  fridges: Fridge[] = [];
+  itExistsOrNot = true;
+  itWasFoundedOrNot = false;
 
-  fridges: Fridge[] = [
-    new Fridge('A test fridge', 'edgarnemeth@gmail.com'),
-    new Fridge('Another One', 'edgarnemeth@gmail.com')
-  ];
-
-  constructor(private fridgeStorageService: FridgeStorageService) { }
+  constructor(private fridgeStorageService: FridgeStorageService,
+              private db: AngularFireDatabase,
+              private global: Global,
+              private fridgeDetail: FridgeDetailComponent
+  ) {}
 
   ngOnInit(): void {
   }
@@ -25,9 +29,26 @@ export class FridgeListComponent implements OnInit {
   onFridgeSelected(fridge: Fridge) {
     this.fridgeWasSelected.emit(fridge);
     this.optionSelected.emit('list');
-    //this.fridgeStorageService.storeFridges(fridge);
+    // console.log('this ' + fridge.owner + '  ' + fridge.name + ' was selected');
   }
 
+  searchForAFridge(fridge: Fridge) {
+    this.db.list('/fridges')
+      .valueChanges()
+      .subscribe(res =>
+        res.forEach( (r) => {
+          JSON.parse(JSON.stringify(r));
+          // @ts-ignore
+          if (r.owner === fridge.owner && r.name === fridge.name) {
+            this.fridgeDetail.fridge = fridge;
+            this.itWasFoundedOrNot = true;
+            // this.isFounded();
+            alert('It was founded!');
+            this.fridgeDetail.continueWithThisFridge();
+          }
+        })
+      );
+  }
 
   onSearchSelected() {
     this.optionSelected.emit('search');
@@ -37,9 +58,28 @@ export class FridgeListComponent implements OnInit {
     this.optionSelected.emit('new');
   }
 
-  // onSaveFridge() {
-  //   this.fridgeStorageService.storeFridges(this.fridge);
-  // }
+  showMyFridges() {
+    // best code of my life
+    // @ts-ignore
+    this.db.list('/fridges')
+      .valueChanges()
+      .subscribe(res =>
+        res.forEach( (r) => {
+          JSON.parse(JSON.stringify(r));
 
-
+          for (const val of this.fridges) {
+            // @ts-ignore
+            if (r.name === val.name) {
+              this.itExistsOrNot = false;
+            }
+          }
+          // @ts-ignore
+          if (r.owner === this.global.userEmail && this.itExistsOrNot ) {
+            // @ts-ignore
+            this.fridges.push(new Fridge(r.name, r.owner));
+          }
+          this.itExistsOrNot = true;
+        })
+      );
+  }
 }

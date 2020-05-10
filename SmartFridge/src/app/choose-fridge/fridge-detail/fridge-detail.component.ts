@@ -1,5 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Fridge } from '../fridge.model';
+import {Router} from '@angular/router';
+import {AngularFireDatabase, snapshotChanges} from '@angular/fire/database';
+import * as firebase from 'firebase';
+
 
 @Component({
   selector: 'app-fridge-detail',
@@ -9,15 +13,28 @@ import { Fridge } from '../fridge.model';
 export class FridgeDetailComponent implements OnInit {
   @Input() fridge: Fridge;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor( private routes: Router, private db: AngularFireDatabase ) {
   }
 
-  continueWithThisFridge() {
+ngOnInit(): void {
+  }
+
+
+
+continueWithThisFridge() {
     console.log(this.fridge);
-    //this fridge details will be uploaded after this
+
   }
 
-
+  deleteThisFridge() {
+    const ref = firebase.database().ref('fridges');
+    ref.orderByChild('name').
+    equalTo(this.fridge.name).
+    on('child_added', (snapshot) => {
+      firebase.database().ref().child('/fridges/' + snapshot.key + '/').remove();
+    });
+    alert('That fridge was deleted!');
+    window.location.reload();
+    // this.routes.navigate(['/chooseFridge']);
+  }
 }

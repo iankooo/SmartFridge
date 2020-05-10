@@ -3,6 +3,8 @@
     <h1>{{fridge.name}}</h1>
     <p> Owner: {{fridge.owner}}</p>
 
+
+
   </div>
 </div>
 <div class="row">
@@ -11,8 +13,17 @@
       <button
         (click)="continueWithThisFridge()"
         type="button"
+        style="margin:8px;"
         class="btn btn-success">
         Choose fridge
+      </button>
+
+      <button
+        (click)="deleteThisFridge()"
+        type="button"
+        style="margin:8px; background-color: #f44336;"
+        class="btn btn-success">
+        Delete fridge
       </button>
     </div>
   </div>

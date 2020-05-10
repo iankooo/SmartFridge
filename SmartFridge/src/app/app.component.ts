@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FoodUnitService} from './foodUnit.service';
 import {FoodUnit} from './main-functionality/shared/foodUnit.model';
+import {Router} from '@angular/router';
+import {AuthService} from './reg-log/reg-log.service';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +10,16 @@ import {FoodUnit} from './main-functionality/shared/foodUnit.model';
   styleUrls: ['./app.component.css'],
   providers: [FoodUnitService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'SmartFridge';
   loadedFeature = 'register/login';
   selectedFoodUnit: FoodUnit;
-  constructor(private foodUnitService: FoodUnitService) { }
+  constructor(private foodUnitService: FoodUnitService, private router: Router, private authService: AuthService) {
+    console.log(this.router.url);
+  }
 
   ngOnInit(): void {
+    this.authService.autoLogin();
     this.foodUnitService.foodUnitSelected
       .subscribe(
         (foodUnit: FoodUnit) => {
@@ -26,7 +31,9 @@ export class AppComponent implements OnInit {
     this.loadedFeature = feature;
   }
 
-  getUrl() {
-    return 'url(../../assets/images/background/rgback.jpg)';
+  ngOnDestroy(): void {
+    // this.authService.logout();
   }
+
+
 }

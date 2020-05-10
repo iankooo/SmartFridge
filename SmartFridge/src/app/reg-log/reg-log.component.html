@@ -41,7 +41,7 @@
             type="submit"
             [disabled]="!resetForm.valid"
           >Send me an email!</button> |
-          <button class="btn btn-primary" (click)="iForgetItMode()" type="button">
+          <button class="btn btn-primary" (click)="isForgetItMode()" type="button">
             Switch to Login
           </button>
         </div>
@@ -104,7 +104,7 @@
           <button
           *ngIf="isLoginMode"
           class="btn btn-secondary btn-sm"
-          (click)="iForgetItMode()"
+          (click)="isForgetItMode()"
           type="button">
             I forget my password
           </button>

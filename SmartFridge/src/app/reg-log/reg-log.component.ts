@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
-// @ts-ignore
 import {AuthService, ReglogResponseData} from './reg-log.service';
 import {Observable} from 'rxjs';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-reg-log',
@@ -18,14 +17,15 @@ export class RegLogComponent implements OnInit {
 
   constructor(private reglogService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    // window.location.reload();
   }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  iForgetItMode() {
+  isForgetItMode() {
     this.isForgettingMode = !this.isForgettingMode;
   }
 
@@ -39,24 +39,23 @@ export class RegLogComponent implements OnInit {
     let reglogObs: Observable<ReglogResponseData>;
 
     this.isLoading = true;
+
     if (this.isLoginMode) {
       reglogObs = this.reglogService.login(email, password);
     } else {
       reglogObs = this.reglogService.signup(email, password);
     }
-
     reglogObs.subscribe(
       resData => {
         console.log(resData);
         this.isLoading = false;
-        this.router.navigate(['main']).then();
+        this.router.navigate(['chooseFridge']);
       }, errorMessage => {
         console.log(errorMessage);
         this.error = errorMessage;
         this.isLoading = false;
       }
     );
-
     form.reset();
   }
 
@@ -66,14 +65,9 @@ export class RegLogComponent implements OnInit {
     }
     const resetEmail = form.value.email;
     if (this.isForgettingMode) {
-      this.reglogService.forgetPassword(resetEmail);
+      this.reglogService.forgotPassword(resetEmail);
     }
     form.reset();
   }
-
-  getUrl() {
-    return 'url(../../assets/images/background/rgback.jpg)';
-  }
-
 
 }

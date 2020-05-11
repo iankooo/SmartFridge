@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {FoodUnit} from './shared/foodUnit.model';
+import {FoodUnitService} from '../foodUnit.service';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-main-functionality',
@@ -6,18 +9,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-functionality.component.css']
 })
 export class MainFunctionalityComponent implements OnInit {
-  toggle = false;
   feature = 'fridge-container';
-  constructor() { }
+  selectedFoodUnit: FoodUnit;
+  menuDetailOn: boolean;
+  expirationDateSelected: string;
+  constructor(private foodUnitService: FoodUnitService) { }
 
   ngOnInit(): void {
+    this.foodUnitService.foodUnitSelected
+      .subscribe(
+        (foodUnit: FoodUnit) => {
+          this.menuDetailOn = true;
+          this.selectedFoodUnit = foodUnit;
+          const currentDate: string = formatDate(new Date(), 'yyyy/MM/dd', 'en').toLocaleString();
+          const year: number = +currentDate.slice(0, 4);
+          const month: number = +currentDate.slice(5, 7);
+          const day: number = +currentDate.slice(8, 10);
+          this.expirationDateSelected = (month + foodUnit.nrOfExpirationMonths) + '/'
+            + (day + foodUnit.nrOfExpirationDays) + '/'
+            + (year + foodUnit.nrOfExpirationYears);
+        }
+      );
   }
-  onNavigate() {
-    this.toggle = !this.toggle;
-    if (this.toggle) {
-      this.feature = 'wish-list';
-    } else {
-      this.feature = 'fridge-container';
-    }
+  onSelectContainer(feature: string) {
+    this.feature = feature;
+  }
+  closeMenuDetail(value: boolean) {
+    this.menuDetailOn = value;
   }
 }

@@ -1,13 +1,81 @@
-<!--<div class="row">
-  <div class="col-xs-12">
-    <h5>{{ menuItem.name }}</h5>
-    <div class="row">
-      <div
-        class=" col-md-1"
-        *ngFor="let foodUnit of menuItem.foodUnits">
-        <img src="{{foodUnit.imagePath}}" height="40" width="40" >
+<div class="row borderr">
+  <form>
+    <div class="col-md-12 form-group">
+      <h2>{{foodUnit.name}}</h2>
+      <div class="col-md-4">
+      <img src="{{foodUnit.imagePath}}" class="img-responsive">
+      </div>
+      <div class="col-md-8">
+        <p>{{foodUnit.description}}...</p>
       </div>
     </div>
-  </div>
-</div>-->
+
+    <div class="col-sm-6 form-group">
+      <label for="quantity">Quantity</label>
+      <input
+        type="number"
+        id="quantity"
+        class="form-control"
+        min="0"
+        max="1000"
+        value="1"
+        #quantityInput>
+    </div>
+
+    <div class="col-sm-6 form-group">
+      <label for="quantitySize">Size</label>
+      <select class="form-control" id="quantitySize"  (change)="onSelectQuantitySizeChange($event)">
+        <option value="">-</option>
+        <option value=" bag(s)">bag(s)</option>
+        <option value=" bottle(s)">bottle(s)</option>
+        <option value=" bundle(s)">bundle(s)</option>
+        <option value=" can(s)">can(s)</option>
+        <option value=" cup(s)">cup(s)</option>
+        <option value=" dl">dl</option>
+        <option value=" glass(es)">glass(es)</option>
+        <option value=" gram">gram</option>
+        <option value=" jar(s)">jar(s)</option>
+        <option value=" kg">kg</option>
+        <option value=" liter">liter(s)</option>
+        <option value=" ml">ml</option>
+        <option value=" oz">oz.</option>
+        <option value=" piece(s)">piece(s)</option>
+        <option value=" pound">pound(s)</option>
+      </select>
+    </div>
+
+    <div class="col-sm-12 form-group">
+      <form [formGroup]="registerForm">
+        <div class="form-group">
+          <div class="input-group">
+            <label for="expirationDate">Expiration date: {{expirationDate}}</label>
+            <input type="date" class="form-control" id="expirationDate" name="expirationDate" [min]="dateChanged" #dateInput formControlName="expirationDate" (change)="setValueForAux($event)">
+            <button class="btn btn-primary" (click)="onChangeExpirationDate()" [disabled]="!dateInput.value">Change exp. date</button>
+            <p *ngIf="textShow">Successfully changed to {{dateChanged}}!</p>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-sm-12 form-group">
+      <app-google-api></app-google-api>
+    </div>
+
+    <div class="col-md-12 form-group">
+      <div class="btn-group" appDropdown>
+        <button
+          type="button"
+          class="btn btn-primary dropdown-toggle">
+          Manage Item <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a (click)="onAddToFridge()" style="cursor: pointer;">To Fridge</a></li>
+          <li><a (click)="onAddToWishList()" style="cursor: pointer;">To WishList</a></li>
+        </ul>
+      </div>
+      <button class="btn btn-danger" type="button" (click)="closeDetailedSection()">Cancel</button>
+    </div>
+
+  </form>
+</div>
 

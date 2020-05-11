@@ -1,17 +1,21 @@
 export class User {
-  constructor(
+
+   // email: string;
+   // id: string;
+   // theToken: string;
+   // tokenExpirationData: Date;
+
+ constructor(
     public email: string,
     public id: string,
-    // tslint:disable-next-line:variable-name
-    private _token: string,
-    // tslint:disable-next-line:variable-name
-    private _tokenExpirationData: Date
-  ) {}
+    private theToken: string,
+    private tokenExpirationData: Date
+ ) {}
 
   get token() {
-    if (!this._tokenExpirationData || new Date() > this._tokenExpirationData) {
+    if (!this.tokenExpirationData || new Date() > this.tokenExpirationData) {
       return null;
     }
-    return this._token;
+    return this.theToken;
   }
 }

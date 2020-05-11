@@ -1,17 +1,9 @@
 <app-header (featureSelected)="onNavigate($event)"></app-header>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-     <app-reg-log *ngIf="loadedFeature === 'register/login'"></app-reg-log>
-      <app-choose-fridge *ngIf="loadedFeature === 'choose-a-fridge'"></app-choose-fridge>
-      <app-main-functionality *ngIf="loadedFeature === 'main-page'"></app-main-functionality>
+<div class="container ">
+  <div class="row ">
+    <div class="col-md-12" >
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
-
-
-<!--<div class="left">
-  <app-detail-section *ngIf="loadedFeature === 'main-page'" [foodUnit]="selectedFoodUnit"></app-detail-section>
-</div>-->
-

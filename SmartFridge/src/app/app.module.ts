@@ -27,6 +27,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {FridgeContainerService} from './main-functionality/fridge-container/fridge-container.service';
 import { FridgeContainerEditComponent } from './main-functionality/fridge-container/fridge-container-edit/fridge-container-edit.component';
 import {WishListService} from './main-functionality/wish-list/wish-list.service';
+import { GoogleApiComponent } from './main-functionality/menu/menu-detail/google-api/google-api.component';
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {WishListService} from './main-functionality/wish-list/wish-list.service'
     FridgeContainerComponent,
     WishListComponent,
     LoadingSpinnerComponent,
-    FridgeContainerEditComponent
+    FridgeContainerEditComponent,
+    GoogleApiComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,11 @@ import {WishListService} from './main-functionality/wish-list/wish-list.service'
     NgbModule,
     BrowserAnimationsModule,
     MatMomentDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDvlMuez85UtA5nDGYoZznQn_gJkaXDPNM',
+      libraries: ['places']
+    })
   ],
   providers: [FridgeContainerService, WishListService],
   bootstrap: [AppComponent]

@@ -67,7 +67,7 @@ import {Global} from './shared/global';
     MatMomentDateModule,
     MatDatepickerModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDvlMuez85UtA5nDGYoZznQn_gJkaXDPNM',
+      apiKey: '',
       libraries: ['places']
     }),
     HttpClientModule,

@@ -1,10 +1,16 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Subject, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {User} from './user.model';
+import {Router} from '@angular/router';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+import * as firebase from 'firebase';
+import * as admin from 'firebase-admin';
+import {RegLogComponent} from './reg-log.component';
+import {Global} from '../shared/global';
 
-// tslint:disable-next-line:no-empty-interface
 export interface ReglogResponseData {
   kind: string;
   idToken: string;
@@ -17,33 +23,43 @@ export interface ReglogResponseData {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  user = new Subject<User>();
-  constructor(private http: HttpClient) {}
+  userData: any; // Save logged in user data
+
+  private theUser = new Subject<User>();
+
+  forDeletePurpose: User;
+  private usersRef: any;
+  private tokenExpirationTimer: any;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    public afs: AngularFirestore,
+    private afAuth: AngularFireAuth,
+    public ngZone: NgZone,
+    public global: Global) {
+      this.afAuth.authState.subscribe(user => {
+        if (user) {
+          this.userData = user;
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem('user'));
+        } else {
+          localStorage.setItem('user', null);
+          JSON.parse(localStorage.getItem('user'));
+        }
+      });
+  }
+
+  // constructor(private http: HttpClient, private router: Router) {}
+
+
+  get user(): Subject<User> {
+    return this.theUser;
+  }
 
   signup(email: string, password: string) {
     return this.http.post<ReglogResponseData>(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB-Ij5WdnCRpocl-e3AwU56hwRSlpdhx8c',
-      {
-         email,
-         password,
-         returnSecureToken: true
-      }
-    )
-      .pipe(catchError(this.handleError),
-        tap(resData => {
-          this.handleAuthentication(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
-          );
-      })
-      );
-  }
-
-  login(email: string, password: string) {
-    return this.http.post<ReglogResponseData>(
-      'https:identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB-Ij5WdnCRpocl-e3AwU56hwRSlpdhx8c',
       {
         email,
         password,
@@ -62,17 +78,36 @@ export class AuthService {
       );
   }
 
+  login(email: string, password: string) {
+    return this.http.post<ReglogResponseData>(
+          'https:identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB-Ij5WdnCRpocl-e3AwU56hwRSlpdhx8c',
+          {
+            email,
+            password,
+            returnSecureToken: true
+          }
+        )
+          .pipe(catchError(this.handleError),
+      tap(resData => {
+        this.handleAuthentication(
+          resData.email,
+          resData.localId,
+          resData.idToken,
+          +resData.expiresIn
+        );
+      })
+  );
+  }
+
+
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
-    const expirationDate = new Date(
-      new Date().getTime() + expiresIn * 1000
-    );
-    const user = new User(
-      email,
-      userId,
-      token,
-      expirationDate
-    );
-    this.user.next(user);
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new User(email, userId, token, expirationDate);
+    this.theUser.next(user);
+    // this.autoLogout(expiresIn * 1000);
+    localStorage.setItem('userData', JSON.stringify(user));
+    this.forDeletePurpose = user;
+    this.global.userEmail = user.email;
   }
 
   private handleError(errorRes: HttpErrorResponse) {
@@ -93,4 +128,64 @@ export class AuthService {
     }
     return throwError(errorMessage);
   }
+
+  autoLogin() {
+    const userData: {
+      email: string;
+      id: string;
+      token: string;
+      tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    console.log(userData);
+
+    if (!userData) {
+      return;
+    }
+
+    this.handleAuthentication(
+      userData.email,
+      userData.id,
+      userData.token,
+      +new Date(userData.tokenExpirationDate)
+    );
+
+    // const loadedUser = new User(
+    //   userData.email,
+    //   userData.id,
+    //   userData.token,
+    //   new Date(userData.tokenExpirationDate)
+    // );
+    //
+    // if (loadedUser.token) {
+    //   this.theUser.next(loadedUser);
+    // }
+
+  }
+
+  logout() {
+    this.user.next(null);
+    localStorage.removeItem('userData');
+    this.router.navigate(['/reglog']);
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout( () => {
+      this.logout();
+    }, expirationDuration);
+  }
+
+  forgotPassword(email: string) {
+    return this.afAuth.sendPasswordResetEmail(email)
+      .then(() => {
+        window.alert('Password resetting email has been sent, check your inbox.');
+      }).catch((error) => {
+        window.alert(error);
+      });
+  }
+
 }

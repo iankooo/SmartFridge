@@ -8,19 +8,29 @@ import { MainFunctionalityComponent } from './main-functionality/main-functional
 import { HeaderComponent} from './header/header.component';
 import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-// @ts-ignore
 import {LoadingSpinnerComponent} from './shared/loading-spinner/loading-spinner.component';
+
+import { FridgeListComponent } from './choose-fridge/fridge-list/fridge-list.component';
+import { FridgeDetailComponent } from './choose-fridge/fridge-detail/fridge-detail.component';
+import {FridgeItemComponent} from './choose-fridge/fridge-list/firdge-item/fridge-item.component';
+
 
 
 import { MenuComponent } from './main-functionality/menu/menu.component';
 import { MenuItemComponent } from './main-functionality/menu/menu-list/menu-item/menu-item.component';
 import { MenuDetailComponent } from './main-functionality/menu/menu-detail/menu-detail.component';
 import { MenuListComponent } from './main-functionality/menu/menu-list/menu-list.component';
-// @ts-ignore
 import {DropdownDirective} from './shared/dropdown.directive';
 import { FridgeContainerComponent } from './main-functionality/fridge-container/fridge-container.component';
 import { WishListComponent } from './main-functionality/wish-list/wish-list.component';
 import { DetailSectionComponent } from './detail-section/detail-section.component';
+import { RouterModule, Routes} from '@angular/router';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import { AppRoutingModule } from './shared/app-routing.modules';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import {Global} from './shared/global';
 
 
 @NgModule({
@@ -28,6 +38,9 @@ import { DetailSectionComponent } from './detail-section/detail-section.componen
     AppComponent,
     RegLogComponent,
     ChooseFridgeComponent,
+    FridgeListComponent,
+    FridgeDetailComponent,
+    FridgeItemComponent,
     HeaderComponent,
     MainFunctionalityComponent,
     DropdownDirective,
@@ -43,9 +56,15 @@ import { DetailSectionComponent } from './detail-section/detail-section.componen
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireModule,
+    AppRoutingModule,
+    AngularFireAuthModule
   ],
-  providers: [],
+  exports: [RouterModule],
+  providers: [Global, FridgeListComponent, FridgeDetailComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

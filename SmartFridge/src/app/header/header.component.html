@@ -1,25 +1,40 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" xmlns="http://www.w3.org/1999/html">
+
   <div class="container-fluid">
-    <div class="navbar-header">
-      <a href="#" class="navbar-brand">SmartFridge</a>
+    <div class="navbar-header" *ngIf="isAuthenticated">
+      <a  href="#" routerLink="/main" (click)="onSelect('main-page')" class="navbar-brand">SmartFridge</a>
     </div>
 
-    <div class="collapse navbar-collapse">
+    <div class="navbar-header navbar-nav" *ngIf="!isAuthenticated">
+      <a class="navbar-brand" style="cursor: context-menu;">SmartFridge</a>
+    </div>
+
+    <div class="collapse navbar-collapse" *ngIf="isAuthenticated">
       <ul class="nav navbar-nav">
-        <li><a href="#" (click)="onSelect('register/login')">Register/Login</a> </li>
-        <li><a href="#" (click)="onSelect('choose-a-fridge')">Choose Fridge</a> </li>
-        <li><a href="#" (click)="onSelect('main-page')">Main Page</a> </li>
+        <li *ngIf="!isAuthenticated"> <a routerLink="/reglog" (click)="onSelect('reglog')">Register/Login</a> </li>
+        <li><a routerLink="/chooseFridge" (click)="onSelect('chooseFridge')"> Choose Fridge</a> </li>
+        <li><a routerLink="/main" (click)="onSelect('main-page')">Main Page</a> </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+
+
+      <ul class="nav navbar-nav navbar-right" *ngIf="isAuthenticated">
         <li class="dropdown" appDropdown>
-          <a href="#" class="dropdown-toggle" role="button"><span class="caret"></span></a>
+
+          <a class="dropdown-toggle" role="button" style="cursor: pointer;">
+            {{authenticatedEmail}}
+            <span class="caret"></span>
+          </a>
+
           <ul class="dropdown-menu">
-            <li><a href="#">Switch Fridge</a> </li>
-            <li><a href="#">Settings</a> </li>
-            <li><a href="#">Logout</a> </li>
+            <li><a href="#" (click)="onLogout()">Logout</a> </li>
+            <li><a href="#" (click)="switchFridge()">Switch Fridge</a> </li>
+            <li><a href="#" (click)="onChangePassword()">Change Password</a> </li>
           </ul>
+
         </li>
       </ul>
+
     </div>
+
   </div>
 </nav>

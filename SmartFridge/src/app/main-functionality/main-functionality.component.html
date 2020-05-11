@@ -1,1 +1,17 @@
-<p>main-functionality works!</p>
+
+<app-menu></app-menu>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <label class="switch center">
+        <input (change)="onNavigate()" type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="col-md-12">
+      <app-fridge-container *ngIf="feature === 'fridge-container'"></app-fridge-container>
+      <app-wish-list *ngIf="feature === 'wish-list'"></app-wish-list>
+    </div>
+  </div>
+</div>

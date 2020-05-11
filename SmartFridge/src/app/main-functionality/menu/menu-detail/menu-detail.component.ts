@@ -22,7 +22,7 @@ export class MenuDetailComponent implements OnInit {
   textShow = false;
   constructor(
     private foodUnitService: FoodUnitService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {

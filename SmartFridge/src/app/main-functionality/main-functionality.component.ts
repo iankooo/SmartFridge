@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FoodUnit} from './shared/foodUnit.model';
 import {FoodUnitService} from '../foodUnit.service';
 import {formatDate} from '@angular/common';
+import {AuthService} from '../reg-log/reg-log.service';
 
 @Component({
   selector: 'app-main-functionality',
@@ -13,9 +14,10 @@ export class MainFunctionalityComponent implements OnInit {
   selectedFoodUnit: FoodUnit;
   menuDetailOn: boolean;
   expirationDateSelected: string;
-  constructor(private foodUnitService: FoodUnitService) { }
+  constructor(private foodUnitService: FoodUnitService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.autoLogin();
     this.foodUnitService.foodUnitSelected
       .subscribe(
         (foodUnit: FoodUnit) => {

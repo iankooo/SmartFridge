@@ -23,7 +23,6 @@ ngOnInit(): void {
 
 continueWithThisFridge() {
     console.log(this.fridge);
-
   }
 
   deleteThisFridge() {

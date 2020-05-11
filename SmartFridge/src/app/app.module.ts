@@ -78,7 +78,7 @@ import {Global} from './shared/global';
     AngularFireAuthModule
   ],
   exports: [RouterModule],
-  providers: [Global, FridgeListComponent, FridgeDetailComponent,FridgeContainerService, WishListService],
+  providers: [Global, FridgeListComponent, FridgeDetailComponent, FridgeContainerService, WishListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

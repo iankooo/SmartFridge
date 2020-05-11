@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onChangePassword() {
     this.authService.forgotPassword(this.authenticatedEmail);
-    window.alert('Password changing email has been sent, check your inbox.');
+   // window.alert('Password changing email has been sent, check your inbox.');
   }
 
   switchFridge() {

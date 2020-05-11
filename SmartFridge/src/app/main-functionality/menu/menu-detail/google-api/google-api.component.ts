@@ -1,5 +1,6 @@
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
+// @ts-ignore
 import {} from 'googlemaps';
 import {MapsAPILoader} from '@agm/core';
 

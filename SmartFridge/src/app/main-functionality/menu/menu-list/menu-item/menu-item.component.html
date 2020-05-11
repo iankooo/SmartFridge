@@ -1,6 +1,6 @@
 
 <div class="subnav">
-  <a href="#">
+  <a>
     <button
       class="subnavbtn hiddentxt"
       (mousemove)="onSelected()">{{menuItem.name}}
@@ -12,8 +12,8 @@
     </div>-->
   </a>
     <div class="subnav-content">
-      <a href="#"><img src="{{menuItem.imagePath}}" width="90" height="60"/></a>
-      <a href="#" *ngFor="let foodUnit of menuItem.foodUnits" (click)="openDetailSection(foodUnit)">
+      <a style="cursor: pointer;"><img src="{{menuItem.imagePath}}" width="90" height="60"/></a>
+      <a style="cursor: pointer;" *ngFor="let foodUnit of menuItem.foodUnits" (click)="openDetailSection(foodUnit)">
         <img src="{{foodUnit.imagePath}}" width="70" height="60">
       </a>
     </div>

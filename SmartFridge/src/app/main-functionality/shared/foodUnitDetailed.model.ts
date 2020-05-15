@@ -5,7 +5,8 @@ export class FoodUnitDetailed {
     public name: string,
     public amount: number,
     public amountSize: string,
-    public expirationDate: string
+    public expirationDate: string,
+    public storeLocation: string
   ) {}
 }
 

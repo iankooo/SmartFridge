@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "smartfridge-73a88": {
+      "hosting": {
+        "SmartFridge": [
+          "smartfridge-73a88"
+        ]
+      }
+    }
+  }
+}

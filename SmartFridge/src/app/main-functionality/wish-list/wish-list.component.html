@@ -1,14 +1,28 @@
 <div class="row">
-  <div class="col-xs-10">
+  <div class="col-xs-12">
+    <app-wish-list-edit></app-wish-list-edit>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-4">
+    <input class="form-control" placeholder="Search in wishlist" type="text" [(ngModel)]="searchedName">
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
     <ul class="list-group">
       <a
         class="list-group-item"
         style="..."
-        *ngFor="let foodUnitDetailed of foodUnitsDetailed"
+        *ngFor="let foodUnitDetailed of foodUnitsDetailed | name:searchedName:'name':'storeLocation' | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index"
+        [ngStyle]="{backgroundColor: getColor(foodUnitDetailed), color: 'white'}"
+        (click)="onEditItem(i)"
       >
-        {{ foodUnitDetailed.name }} ({{ foodUnitDetailed.amount }} - {{foodUnitDetailed.amountSize}})
+        {{ foodUnitDetailed.name }} ({{ foodUnitDetailed.amount }}{{foodUnitDetailed.amountSize}}) from  {{foodUnitDetailed.storeLocation}}
+        <span class="badge list-group-item-success">{{foodUnitDetailed.expirationDate}}</span>
       </a>
     </ul>
+    <ngb-pagination [collectionSize]="foodUnitsDetailed.length" [(page)]="page" [(pageSize)]="pageSize" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
   </div>
 </div>
 

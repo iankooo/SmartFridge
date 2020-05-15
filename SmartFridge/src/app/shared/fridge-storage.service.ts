@@ -37,7 +37,6 @@ export class FridgeStorageService {
     if (fridge.name === null || fridge.name === '') {
       alert('The name must contain something');
     } else {
-
         // @ts-ignore
       if (this.stored === true) {
               alert('This fridge already exists in database, choose another name, please!');
@@ -46,7 +45,9 @@ export class FridgeStorageService {
               const items = this.db.list('fridges');
               items.push({
                 name: fridge.name,
-                owner: fridge.owner
+                owner: fridge.owner,
+                wishList: fridge.wishList,
+                fridgeContainer: fridge.fridgeContainer
               });
         }
 

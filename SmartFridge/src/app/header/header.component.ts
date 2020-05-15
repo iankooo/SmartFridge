@@ -3,6 +3,7 @@ import {AuthService} from '../reg-log/reg-log.service';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {FridgeDetailComponent} from '../choose-fridge/fridge-detail/fridge-detail.component';
+import {Global} from '../shared/global';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +16,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authenticatedEmail: string;
   private userSub: Subscription;
 
-  constructor(private authService: AuthService, private router: Router, private fridgeDetail: FridgeDetailComponent) {
-  }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private fridgeDetail: FridgeDetailComponent,
+    private globalVariable: Global
+  ) { }
 
   ngOnInit() {
     this.authService.autoLogin();
@@ -48,7 +53,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.fridgeDetail.fridge = null;
     this.onSelect('chooseFridge');
     this.router.navigate(['/chooseFridge']);
-    // aiai trebe scos si frigiderul ala pe care l-am ales deja
+    localStorage.removeItem('selectedFridgeKey');
+    // this.globalVariable.theChosenFridgeKey = null;
   }
 
 }

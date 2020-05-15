@@ -3,6 +3,7 @@ import { Fridge } from '../fridge.model';
 import {Router} from '@angular/router';
 import {AngularFireDatabase, snapshotChanges} from '@angular/fire/database';
 import * as firebase from 'firebase';
+import {Global} from '../../shared/global';
 
 
 @Component({
@@ -13,16 +14,21 @@ import * as firebase from 'firebase';
 export class FridgeDetailComponent implements OnInit {
   @Input() fridge: Fridge;
 
-  constructor( private routes: Router, private db: AngularFireDatabase ) {
+  constructor( private routes: Router, private db: AngularFireDatabase, private globalVariables: Global) {
   }
 
 ngOnInit(): void {
   }
 
-
-
 continueWithThisFridge() {
-    console.log(this.fridge);
+
+    const ref = firebase.database().ref('fridges');
+    ref.orderByChild('name').
+    equalTo(this.fridge.name).
+    on('child_added', (snapshot) => {
+      localStorage.setItem('selectedFridgeKey', snapshot.key);
+    });
+    this.routes.navigate(['/main']);
   }
 
   deleteThisFridge() {

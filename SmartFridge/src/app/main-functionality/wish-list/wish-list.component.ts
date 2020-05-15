@@ -10,14 +10,15 @@ import {NamePipe} from '../name.pipe';
   providers: [NamePipe]
 })
 export class WishListComponent implements OnInit {
-  foodUnitsDetailed: FoodUnitDetailed[] = [];
+  foodUnitsDetailed: FoodUnitDetailed[];
   page = 1;
   pageSize = 6;
   searchedName: '';
   constructor(private wishListService: WishListService) { }
 
   ngOnInit(): void {
-    this.foodUnitsDetailed = this.wishListService.getFoodUnitsDetailed();
+    this.wishListService.getFoodUnitsDetailed();
+    this.foodUnitsDetailed = this.wishListService.foodUnitsDetailed;
     this.wishListService.foodUnitsDetailedChanged
       .subscribe(
         (foodUnitsDetailed: FoodUnitDetailed[]) => {

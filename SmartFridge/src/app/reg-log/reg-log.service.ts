@@ -166,6 +166,7 @@ export class AuthService {
   logout() {
     this.user.next(null);
     localStorage.removeItem('userData');
+    localStorage.removeItem('selectedFridgeKey');
     this.router.navigate(['/reglog']);
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);

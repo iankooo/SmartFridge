@@ -6,10 +6,9 @@
       <img src="{{foodUnit.imagePath}}" class="img-responsive">
       </div>
       <div class="col-md-8">
-        <p>{{foodUnit.description}}...</p>
+        <p>{{foodUnit.description}}</p>
       </div>
     </div>
-
     <div class="col-sm-6 form-group">
       <label for="quantity">Quantity</label>
       <input
@@ -58,11 +57,11 @@
     </div>
 
     <div class="col-sm-12 form-group">
-      <app-google-api></app-google-api>
+      <app-google-api (storeLocation)="setStoreLocation($event)"></app-google-api>
     </div>
 
     <div class="col-md-12 form-group">
-      <div class="btn-group" appDropdown>
+      <div class="btn-group dropup" appDropdown>
         <button
           type="button"
           class="btn btn-primary dropdown-toggle">
@@ -75,7 +74,6 @@
       </div>
       <button class="btn btn-danger" type="button" (click)="closeDetailedSection()">Cancel</button>
     </div>
-
   </form>
 </div>
 

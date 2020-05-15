@@ -9,6 +9,7 @@ import {MenuService} from '../menu.service';
 })
 export class MenuListComponent implements OnInit {
   menuItems: MenuItem[];
+  searchText: string;
   constructor(private menuItemService: MenuService) { }
 
   ngOnInit(): void {

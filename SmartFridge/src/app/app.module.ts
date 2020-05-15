@@ -34,7 +34,9 @@ import {environment} from '../environments/environment';
 import { AppRoutingModule } from './shared/app-routing.modules';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import {Global} from './shared/global';
-
+import { WishListEditComponent } from './main-functionality/wish-list/wish-list-edit/wish-list-edit.component';
+import {DatePipe} from '@angular/common';
+import {NamePipe} from './main-functionality/name.pipe';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import {Global} from './shared/global';
     WishListComponent,
     LoadingSpinnerComponent,
     FridgeContainerEditComponent,
-    GoogleApiComponent
+    GoogleApiComponent,
+    WishListEditComponent,
+    NamePipe
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,7 @@ import {Global} from './shared/global';
     MatMomentDateModule,
     MatDatepickerModule,
     AgmCoreModule.forRoot({
-      apiKey: '',
+      apiKey: 'AIzaSyDvlMuez85UtA5nDGYoZznQn_gJkaXDPNM',
       libraries: ['places']
     }),
     HttpClientModule,
@@ -78,7 +82,7 @@ import {Global} from './shared/global';
     AngularFireAuthModule
   ],
   exports: [RouterModule],
-  providers: [Global, FridgeListComponent, FridgeDetailComponent, FridgeContainerService, WishListService],
+  providers: [Global, FridgeListComponent, FridgeDetailComponent, FridgeContainerService, WishListService, DatePipe, NamePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

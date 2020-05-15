@@ -66,6 +66,7 @@
         </div>
         <div class="col-xs-4">
           <button class="btn btn-success" type="submit" [disabled]="!f.valid" *ngIf="editMode">Update</button>
+          <button class="btn btn-primary" type="button" (click)="onMoveToFridge(f)" *ngIf="editMode">Move To Fridge</button>
           <button
             class="btn btn-danger"
             type="button"
@@ -74,6 +75,11 @@
           >Delete</button>
         </div>
         <div class="col-xs-5">
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="onMoveAll()"
+          >Move all to fridge</button>
           <button
             class="btn btn-danger"
             type="button"

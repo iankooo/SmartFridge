@@ -1,4 +1,4 @@
-import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 // @ts-ignore
 import {} from 'googlemaps';
@@ -15,9 +15,8 @@ export class GoogleApiComponent implements OnInit {
   public longitude: number;
   public searchControl: FormControl;
   public zoom: number;
-
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
+  @ViewChild('search') searchElementRef: ElementRef;
+  @Output() storeLocation = new EventEmitter<string>();
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
@@ -45,7 +44,6 @@ export class GoogleApiComponent implements OnInit {
         this.ngZone.run(() => {
           // get the place result
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
           // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -55,6 +53,7 @@ export class GoogleApiComponent implements OnInit {
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.zoom = 12;
+          this.setStoreLocation(this.searchElementRef.nativeElement.value);
         });
       });
     });
@@ -68,6 +67,9 @@ export class GoogleApiComponent implements OnInit {
         this.zoom = 12;
       });
     }
+  }
+  setStoreLocation(storeName: string) {
+    this.storeLocation.emit(storeName);
   }
 
 }

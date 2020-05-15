@@ -16,6 +16,7 @@ export class MenuDetailComponent implements OnInit {
   @Input() expirationDate: string;
   @ViewChild('quantityInput') quantityInputRef: ElementRef;
   quantitySizeInputRef = '';
+  storeLocation;
   registerForm: FormsModule;
   dateChanged = '';
   aux = '';
@@ -37,6 +38,7 @@ export class MenuDetailComponent implements OnInit {
           this.dateChanged = '';
           this.aux = '';
           this.textShow = false;
+          this.storeLocation = '';
         }
       );
   }
@@ -48,7 +50,8 @@ export class MenuDetailComponent implements OnInit {
           this.foodUnit.name,
           this.quantityInputRef.nativeElement.value,
           this.quantitySizeInputRef,
-          this.expirationDate
+          this.expirationDate,
+          this.storeLocation
         ));
     } else {
       this.foodUnitService.addFoodUnitToFridgeList(
@@ -57,7 +60,8 @@ export class MenuDetailComponent implements OnInit {
           this.foodUnit.name,
           this.quantityInputRef.nativeElement.value,
           this.quantitySizeInputRef,
-          this.dateChanged
+          this.dateChanged,
+          this.storeLocation
         ));
     }
   }
@@ -69,7 +73,8 @@ export class MenuDetailComponent implements OnInit {
           this.foodUnit.name,
           this.quantityInputRef.nativeElement.value,
           this.quantitySizeInputRef,
-          this.expirationDate
+          this.expirationDate,
+          this.storeLocation
         ));
     } else {
       this.foodUnitService.addFoodUnitToWishList(
@@ -78,7 +83,8 @@ export class MenuDetailComponent implements OnInit {
           this.foodUnit.name,
           this.quantityInputRef.nativeElement.value,
           this.quantitySizeInputRef,
-          this.dateChanged
+          this.dateChanged,
+          this.storeLocation
         ));
     }
   }
@@ -87,6 +93,9 @@ export class MenuDetailComponent implements OnInit {
   }
   setValueForAux(event: any) {
     this.aux = event.target.value;
+  }
+  setStoreLocation(storeName: string) {
+    this.storeLocation = storeName;
   }
   onChangeExpirationDate() {
     const year: number = +this.aux.slice(0, 4);

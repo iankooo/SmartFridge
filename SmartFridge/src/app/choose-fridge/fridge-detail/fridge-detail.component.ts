@@ -14,14 +14,13 @@ import {Global} from '../../shared/global';
 export class FridgeDetailComponent implements OnInit {
   @Input() fridge: Fridge;
 
-  constructor( private routes: Router, private db: AngularFireDatabase, private globalVariables: Global) {
+  constructor( private routes: Router, private db: AngularFireDatabase, private globalVariables: Global) { }
+
+  ngOnInit(): void {
+
   }
 
-ngOnInit(): void {
-  }
-
-continueWithThisFridge() {
-
+  continueWithThisFridge() {
     const ref = firebase.database().ref('fridges');
     ref.orderByChild('name').
     equalTo(this.fridge.name).
@@ -40,6 +39,5 @@ continueWithThisFridge() {
     });
     alert('That fridge was deleted!');
     window.location.reload();
-    // this.routes.navigate(['/chooseFridge']);
   }
 }

@@ -2,7 +2,7 @@
 
   <div class="container-fluid">
     <div class="navbar-header" *ngIf="isAuthenticated">
-      <a  href="#" routerLink="/main" (click)="onSelect('main-page')" class="navbar-brand">SmartFridge</a>
+      <a class="navbar-brand" style="cursor: context-menu;">SmartFridge</a>
     </div>
 
     <div class="navbar-header navbar-nav" *ngIf="!isAuthenticated">
@@ -12,8 +12,8 @@
     <div class="collapse navbar-collapse" *ngIf="isAuthenticated">
       <ul class="nav navbar-nav">
         <li *ngIf="!isAuthenticated"> <a routerLink="/reglog" (click)="onSelect('reglog')">Register/Login</a> </li>
-        <li><a routerLink="/chooseFridge" (click)="onSelect('chooseFridge')"> Choose Fridge</a> </li>
-        <li><a routerLink="/main" (click)="onSelect('main-page')">Main Page</a> </li>
+        <li *ngIf="!isAuthenticated"><a routerLink="/chooseFridge" (click)="onSelect('chooseFridge')"> Choose Fridge</a> </li>
+        <li *ngIf="!isAuthenticated"><a routerLink="/main" (click)="onSelect('main-page')">Main Page</a> </li>
       </ul>
 
 

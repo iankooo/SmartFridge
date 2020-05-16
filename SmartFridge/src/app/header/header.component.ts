@@ -3,7 +3,6 @@ import {AuthService} from '../reg-log/reg-log.service';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {FridgeDetailComponent} from '../choose-fridge/fridge-detail/fridge-detail.component';
-import {Global} from '../shared/global';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +19,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private fridgeDetail: FridgeDetailComponent,
-    private globalVariable: Global
   ) { }
 
   ngOnInit() {
@@ -41,12 +39,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.authService.logout();
-    // this.router.navigate(['/reglog']);
   }
 
   onChangePassword() {
     this.authService.forgotPassword(this.authenticatedEmail);
-   // window.alert('Password changing email has been sent, check your inbox.');
   }
 
   switchFridge() {
@@ -54,7 +50,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.onSelect('chooseFridge');
     this.router.navigate(['/chooseFridge']);
     localStorage.removeItem('selectedFridgeKey');
-    // this.globalVariable.theChosenFridgeKey = null;
   }
 
 }

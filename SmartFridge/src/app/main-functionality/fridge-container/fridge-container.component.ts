@@ -9,14 +9,15 @@ import {NamePipe} from '../name.pipe';
   providers: [NamePipe]
 })
 export class FridgeContainerComponent implements OnInit {
-  foodUnitsDetailed: FoodUnitDetailed[] = [];
+  public foodUnitsDetailed: FoodUnitDetailed[];
   page = 1;
   pageSize = 6;
   searchedName: '';
   constructor(private fridgeContainerService: FridgeContainerService) { }
 
   ngOnInit(): void {
-    this.foodUnitsDetailed = this.fridgeContainerService.getFoodUnitsDetailed();
+    this.fridgeContainerService.getFoodUnitsDetailed();
+    this.foodUnitsDetailed = this.fridgeContainerService.foodUnitsDetailed;
     this.fridgeContainerService.foodUnitsDetailedChanged
       .subscribe(
         (foodUnitsDetailed: FoodUnitDetailed[]) => {
@@ -24,8 +25,9 @@ export class FridgeContainerComponent implements OnInit {
         }
       );
   }
+
   onEditItem(index: number) {
-    this.fridgeContainerService.startedEditing.emit(index);
+    this.fridgeContainerService.startedEditing.emit(index + (this.page - 1 ) * this.pageSize);
   }
   getColor(currentFoodUnitDetailed: FoodUnitDetailed) {
     return this.fridgeContainerService.getColor(currentFoodUnitDetailed);

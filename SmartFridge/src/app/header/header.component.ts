@@ -15,8 +15,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authenticatedEmail: string;
   private userSub: Subscription;
 
-  constructor(private authService: AuthService, private router: Router, private fridgeDetail: FridgeDetailComponent) {
-  }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private fridgeDetail: FridgeDetailComponent,
+  ) { }
 
   ngOnInit() {
     this.authService.autoLogin();
@@ -36,19 +39,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.authService.logout();
-    // this.router.navigate(['/reglog']);
   }
 
   onChangePassword() {
     this.authService.forgotPassword(this.authenticatedEmail);
-   // window.alert('Password changing email has been sent, check your inbox.');
   }
 
   switchFridge() {
     this.fridgeDetail.fridge = null;
     this.onSelect('chooseFridge');
     this.router.navigate(['/chooseFridge']);
-    // aiai trebe scos si frigiderul ala pe care l-am ales deja
+    localStorage.removeItem('selectedFridgeKey');
   }
 
 }

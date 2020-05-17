@@ -27,9 +27,18 @@ export class MainFunctionalityComponent implements OnInit {
           const year: number = +currentDate.slice(0, 4);
           const month: number = +currentDate.slice(5, 7);
           const day: number = +currentDate.slice(8, 10);
-          this.expirationDateSelected = (month + foodUnit.nrOfExpirationMonths) + '/'
-            + (day + foodUnit.nrOfExpirationDays) + '/'
-            + (year + foodUnit.nrOfExpirationYears);
+          const redefYear = year + foodUnit.nrOfExpirationYears;
+          const redefMonth = month + foodUnit.nrOfExpirationMonths;
+          const redefDay = day + foodUnit.nrOfExpirationDays;
+          if (redefDay < 10 && redefMonth < 10) {
+            this.expirationDateSelected = redefYear + '-0' + redefMonth + '-0' + redefDay;
+          } else if (redefMonth < 10) {
+            this.expirationDateSelected = redefYear + '-0' + redefMonth + '-' + redefDay;
+          } else if (redefDay < 10) {
+            this.expirationDateSelected = redefYear + '-' + redefMonth + '-0' + redefDay;
+          } else {
+            this.expirationDateSelected = redefYear + '-' + redefMonth + '-' + redefDay;
+          }
         }
       );
   }

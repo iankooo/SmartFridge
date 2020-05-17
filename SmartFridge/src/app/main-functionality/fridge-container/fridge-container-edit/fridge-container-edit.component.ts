@@ -40,7 +40,14 @@ export class FridgeContainerEditComponent implements OnInit, OnDestroy {
   }
   onSubmit(form: NgForm) {
     const value = form.value;
-    const newFoodUnitDetailed = new FoodUnitDetailed(this.foodUnit, value.name, value.quantity, value.size, value.date, value.storeName);
+    const newFoodUnitDetailed = new FoodUnitDetailed(
+      this.foodUnit,
+      value.name,
+      value.quantity,
+      value.size,
+      this.editedFoodUnitDetailed.expirationDate,
+      value.storeName
+    );
     if (this.editMode) {
       this.fridgeContainerService.updateFoodUnitDetailed(this.editedFoodUnitIndex, newFoodUnitDetailed);
     } else {

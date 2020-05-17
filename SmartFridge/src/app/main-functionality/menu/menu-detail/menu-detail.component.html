@@ -1,5 +1,5 @@
 <div class="row borderr">
-  <form>
+  <form (ngSubmit)="onAdd(formMenu)" #formMenu="ngForm">
     <div class="col-md-12 form-group">
       <h2>{{foodUnit.name}}</h2>
       <div class="col-md-4">
@@ -15,16 +15,22 @@
         type="number"
         id="quantity"
         class="form-control"
-        min="0"
-        max="1000"
-        value="1"
-        #quantityInput>
+        name="quantity"
+        ngModel
+        required
+        pattern="^[1-9]+[0-9]*$"
+      >
     </div>
 
     <div class="col-sm-6 form-group">
       <label for="quantitySize">Size</label>
-      <select class="form-control" id="quantitySize"  (change)="onSelectQuantitySizeChange($event)">
-        <option value="">-</option>
+      <select
+        class="form-control"
+        id="quantitySize"
+        name="quantitySize"
+        ngModel
+        required
+      >
         <option value=" bag(s)">bag(s)</option>
         <option value=" bottle(s)">bottle(s)</option>
         <option value=" bundle(s)">bundle(s)</option>
@@ -47,9 +53,18 @@
       <form [formGroup]="registerForm">
         <div class="form-group">
           <div class="input-group">
-            <label for="expirationDate">Expiration date: {{expirationDate}}</label>
-            <input type="date" class="form-control" id="expirationDate" name="expirationDate" [min]="dateChanged" #dateInput formControlName="expirationDate" (change)="setValueForAux($event)">
-            <button class="btn btn-primary" (click)="onChangeExpirationDate()" [disabled]="!dateInput.value">Change exp. date</button>
+            <label for="date">Expiration date: {{expirationDate}}</label>
+            <input
+              type="date"
+              class="form-control"
+              id="date"
+              name="date"
+              [min]="dateChanged"
+              formControlName="expirationDate"
+              (change)="setValueForAux($event)"
+              ngModel
+            >
+            <button class="btn btn-primary" (click)="onChangeExpirationDate()">Change exp. date</button>
             <p *ngIf="textShow">Successfully changed to {{dateChanged}}!</p>
           </div>
         </div>
@@ -57,19 +72,38 @@
     </div>
 
     <div class="col-sm-12 form-group">
-      <app-google-api (storeLocation)="setStoreLocation($event)"></app-google-api>
+      <div class="form-group">
+        <input
+          placeholder="Enter address of store"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="off"
+          type="text"
+          class="form-control"
+          name="searchLocation"
+          #search
+          [formControl]="searchControl"
+          required
+          ngModel
+        >
+      </div>
+      <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+      </agm-map>
     </div>
 
     <div class="col-md-12 form-group">
       <div class="btn-group dropup" appDropdown>
         <button
-          type="button"
-          class="btn btn-primary dropdown-toggle">
+          type="submit"
+          class="btn btn-primary dropdown-toggle"
+          [disabled]="!formMenu.valid || !searchControl.valid"
+        >
           Manage Item <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li><a (click)="onAddToFridge()" style="cursor: pointer;">To Fridge</a></li>
-          <li><a (click)="onAddToWishList()" style="cursor: pointer;">To WishList</a></li>
+          <li><a (click)="onAddToFridge(formMenu)" style="cursor: pointer;">To Fridge</a></li>
+          <li><a (click)="onAddToWishList(formMenu)" style="cursor: pointer;">To WishList</a></li>
         </ul>
       </div>
       <button class="btn btn-danger" type="button" (click)="closeDetailedSection()">Cancel</button>

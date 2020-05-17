@@ -10,6 +10,7 @@
             class="form-control"
             name="name"
             ngModel
+            required
           >
         </div>
         <div class="col-sm-2 form-group">
@@ -21,6 +22,7 @@
             pattern="^[1-9]+[0-9]*$"
             name="quantity"
             ngModel
+            required
           >
         </div>
         <div class="col-sm-2 form-group">
@@ -31,6 +33,7 @@
             class="form-control"
             name="size"
             ngModel
+            required
           >
         </div>
         <div class="col-sm-3 form-group">
@@ -40,8 +43,9 @@
             id="date"
             class="form-control"
             name="date"
-            [disabled]="f.valid || !f.valid"
+            [disabled]="editMode"
             ngModel
+            required
           >
         </div>
         <div class="col-sm-3 form-group">
@@ -52,6 +56,7 @@
             class="form-control"
             name="storeName"
             ngModel
+            required
           >
         </div>
       </div>

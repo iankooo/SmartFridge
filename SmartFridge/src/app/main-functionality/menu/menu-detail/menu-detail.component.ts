@@ -81,9 +81,6 @@ export class MenuDetailComponent implements OnInit {
           this.aux = '';
           this.textShow = false;
           this.storeLocation = '';
-          this.foodUnit.name = '';
-          this.foodUnit.imagePath = '';
-          this.foodUnit.description = '';
           this.foodUnit.nrOfExpirationDays = 0;
           this.foodUnit.nrOfExpirationMonths = 0;
           this.foodUnit.nrOfExpirationMonths = 0;

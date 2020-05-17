@@ -1,11 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Output, Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'name',
   pure: false
 })
 export class NamePipe implements PipeTransform {
-
+  @Output('newIndex') newIndex: number;
   transform(value: any, nameString: string, propName: string, propStoreLocation: string): any {
     if (value.length === 0 || nameString === '' || nameString === undefined) {
       return value;

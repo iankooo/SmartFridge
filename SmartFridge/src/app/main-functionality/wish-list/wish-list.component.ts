@@ -26,7 +26,8 @@ export class WishListComponent implements OnInit {
         }
       );
   }
-  onEditItem(index: number) {
+  onEditItem(index: number, foodUnitDetailed: FoodUnitDetailed) {
+    index = this.foodUnitsDetailed.indexOf(foodUnitDetailed);
     this.wishListService.startedEditing.emit(index);
   }
   getColor(currentFoodUnitDetailed: FoodUnitDetailed) {

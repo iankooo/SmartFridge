@@ -25,13 +25,9 @@ export class FridgeContainerService {
   getFoodUnitsDetailed() {
     let theKey = JSON.stringify(localStorage.getItem('selectedFridgeKey'));
     theKey = theKey.substring(1, theKey.length - 1);
-    // console.log(theKey);
-
     this.db.list('fridges/' + theKey + '/fridgeContainer')
       .valueChanges()
       .subscribe(async (res) => {
-          // await delay(5000);
-          // console.log('unu: ' + JSON.parse(JSON.stringify(res)));
           this.foodUnitsDetailed = JSON.parse(JSON.stringify(res));
           this.delay(500);
       });
@@ -41,7 +37,6 @@ export class FridgeContainerService {
     return this.foodUnitsDetailed[index];
   }
   addFoodUnitDetailed(foodUnitDetailed: FoodUnitDetailed) {
-    // console.log(foodUnitDetailed);
     let theKey = JSON.stringify(localStorage.getItem('selectedFridgeKey'));
     theKey = theKey.substring(1, theKey.length - 1);
     const items = this.db.list('fridges/' + theKey + '/fridgeContainer');
@@ -62,9 +57,6 @@ export class FridgeContainerService {
     equalTo(this.foodUnitsDetailed[index].name).
     on('child_added', (snapshot) => {
       if (JSON.stringify(snapshot.toJSON()) === JSON.stringify(this.foodUnitsDetailed[index]) ) {
-        // console.log('da');
-        // console.log(snapshot.key);
-        // tslint:disable-next-line:no-shadowed-variable
         const adaNameRef = firebase.database().ref('fridges/' + theKey + '/fridgeContainer/' + snapshot.key + '/');
         adaNameRef.update({
           name: newFoodUnitDetailed.name,
@@ -88,8 +80,6 @@ export class FridgeContainerService {
     equalTo(this.foodUnitsDetailed[index].name).
     on('child_added', (snapshot) => {
       if (JSON.stringify(snapshot.toJSON()) === JSON.stringify(this.foodUnitsDetailed[index]) ) {
-        // console.log('da');
-        // console.log(snapshot.key);
         firebase.database().ref().child('fridges/' + theKey + '/fridgeContainer/' + snapshot.key + '/').remove();
       }
     });
@@ -108,10 +98,10 @@ export class FridgeContainerService {
     const currentYear: number = +currentDate.slice(0, 4);
     const currentMonth: number = +currentDate.slice(5, 7);
     const currentDay: number = +currentDate.slice(8, 10);
-    const expirationDate: number[] = currentFoodUnitDetailed.expirationDate.split('/', 3).map(Number);
-    const expirationMonth: number = expirationDate[0];
-    const expirationDay: number = expirationDate[1];
-    const expirationYear: number = expirationDate[2];
+    const expirationDate: number[] = currentFoodUnitDetailed.expirationDate.split('-', 3).map(Number);
+    const expirationYear: number = expirationDate[0];
+    const expirationMonth: number = expirationDate[1];
+    const expirationDay: number = expirationDate[2];
     if (currentYear > expirationYear) {
       return true;
     } else if (currentYear === expirationYear && currentMonth > expirationMonth) {

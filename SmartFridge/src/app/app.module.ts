@@ -71,7 +71,7 @@ import {NamePipe} from './main-functionality/name.pipe';
     MatMomentDateModule,
     MatDatepickerModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDvlMuez85UtA5nDGYoZznQn_gJkaXDPNM',
+      apiKey: '',
       libraries: ['places']
     }),
     HttpClientModule,

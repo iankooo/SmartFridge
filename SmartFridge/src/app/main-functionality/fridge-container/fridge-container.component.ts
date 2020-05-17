@@ -26,19 +26,11 @@ export class FridgeContainerComponent implements OnInit {
       );
   }
 
-  onEditItem(index: number) {
-    this.fridgeContainerService.startedEditing.emit(index + (this.page - 1 ) * this.pageSize);
+  onEditItem(index: number, foodUnitDetailed: FoodUnitDetailed) {
+    index = this.foodUnitsDetailed.indexOf(foodUnitDetailed);
+    this.fridgeContainerService.startedEditing.emit(index);
   }
   getColor(currentFoodUnitDetailed: FoodUnitDetailed) {
     return this.fridgeContainerService.getColor(currentFoodUnitDetailed);
-  }
-  searchName() {
-    if (this.searchedName !== '') {
-      this.foodUnitsDetailed = this.foodUnitsDetailed.filter(res => {
-        return res.name.toLocaleLowerCase().match(this.searchedName.toLocaleLowerCase());
-      });
-    } else if (this.searchedName === '') {
-       this.ngOnInit();
-    }
   }
 }

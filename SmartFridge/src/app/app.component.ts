@@ -17,7 +17,6 @@ export class AppComponent implements OnInit, OnDestroy {
   loadedFeature = 'register/login';
   selectedFoodUnit: FoodUnit;
   constructor(private foodUnitService: FoodUnitService, private router: Router, private authService: AuthService) {
-   // console.log(this.router.url);
   }
   ngOnInit(): void {
     this.authService.autoLogin();

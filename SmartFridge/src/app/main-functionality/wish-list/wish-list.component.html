@@ -16,7 +16,7 @@
         style="..."
         *ngFor="let foodUnitDetailed of foodUnitsDetailed | name:searchedName:'name':'storeLocation' | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index"
         [ngStyle]="{backgroundColor: getColor(foodUnitDetailed), color: 'white'}"
-        (click)="onEditItem(i)"
+        (click)="onEditItem(i, foodUnitDetailed)"
       >
         {{ foodUnitDetailed.name }} ({{ foodUnitDetailed.amount }}{{foodUnitDetailed.amountSize}}) from  {{foodUnitDetailed.storeLocation}}
         <span class="badge list-group-item-success">{{foodUnitDetailed.expirationDate}}</span>

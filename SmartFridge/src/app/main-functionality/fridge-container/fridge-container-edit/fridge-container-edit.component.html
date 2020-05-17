@@ -19,9 +19,7 @@
             type="number"
             id="quantity"
             class="form-control"
-            min="1"
-            max="1000"
-            value="1"
+            pattern="^[1-9]+[0-9]*$"
             name="quantity"
             ngModel
             required
@@ -35,6 +33,7 @@
             class="form-control"
             name="size"
             ngModel
+            required
           >
         </div>
         <div class="col-sm-3 form-group">
@@ -44,8 +43,8 @@
             id="date"
             class="form-control"
             name="date"
+            [disabled]="f.valid || !f.valid"
             ngModel
-            required
           >
         </div>
         <div class="col-sm-3 form-group">
@@ -56,6 +55,7 @@
             class="form-control"
             name="storeName"
             ngModel
+            required
           >
         </div>
       </div>

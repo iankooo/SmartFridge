@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthService, ReglogResponseData} from './reg-log.service';
 import {Observable} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-reg-log',
@@ -18,7 +18,6 @@ export class RegLogComponent implements OnInit {
   constructor(private reglogService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    // window.location.reload();
   }
 
   onSwitchMode() {
@@ -47,11 +46,11 @@ export class RegLogComponent implements OnInit {
     }
     reglogObs.subscribe(
       resData => {
-        console.log(resData);
+        // console.log(resData);
         this.isLoading = false;
         this.router.navigate(['chooseFridge']);
       }, errorMessage => {
-        console.log(errorMessage);
+        // console.log(errorMessage);
         this.error = errorMessage;
         this.isLoading = false;
       }

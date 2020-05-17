@@ -5,7 +5,6 @@ import {FridgeContainerService} from './main-functionality/fridge-container/frid
 import {Router} from '@angular/router';
 import {AuthService} from './reg-log/reg-log.service';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   loadedFeature = 'register/login';
   selectedFoodUnit: FoodUnit;
   constructor(private foodUnitService: FoodUnitService, private router: Router, private authService: AuthService) {
-    console.log(this.router.url);
+   // console.log(this.router.url);
   }
   ngOnInit(): void {
     this.authService.autoLogin();
@@ -32,10 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
   onNavigate(feature: string) {
     this.loadedFeature = feature;
   }
-
   ngOnDestroy(): void {
-    // this.authService.logout();
+    this.authService.logout();
   }
-
-
 }

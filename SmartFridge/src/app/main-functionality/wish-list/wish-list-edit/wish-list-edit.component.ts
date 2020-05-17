@@ -38,9 +38,16 @@ export class WishListEditComponent implements OnInit, OnDestroy {
         }
       );
   }
+
   onSubmit(form: NgForm) {
     const value = form.value;
-    const newFoodUnitDetailed = new FoodUnitDetailed(this.foodUnit, value.name, value.quantity, value.size, this.editedFoodUnitDetailed.expirationDate, value.storeName);
+    const newFoodUnitDetailed = new FoodUnitDetailed(
+      new FoodUnit('', '', '', 0, 0, 0),
+      value.name, 
+      value.quantity, 
+      value.size, 
+      this.editedFoodUnitDetailed.expirationDate, 
+      value.storeName);
     if (this.editMode) {
       this.wishListService.updateFoodUnitDetailed(this.editedFoodUnitIndex, newFoodUnitDetailed);
     } else {
@@ -64,15 +71,16 @@ export class WishListEditComponent implements OnInit, OnDestroy {
   }
   onMoveToFridge(form: NgForm) {
     const value = form.value;
-    const newFoodUnitDetailed = new FoodUnitDetailed(this.foodUnit, value.name, value.quantity, value.size, value.date, value.storeName);
+    const newFoodUnitDetailed = new FoodUnitDetailed(new FoodUnit('', '', '', 0, 0, 0)
+      , value.name, value.quantity, value.size, value.date, value.storeName);
     this.fridgeContainerService.addFoodUnitDetailed(newFoodUnitDetailed);
     this.wishListService.deleteFoodUnitDetailed(this.editedFoodUnitIndex);
     this.editMode = false;
     form.reset();
   }
   onMoveAll() {
-    this.fridgeContainerService.addAllFoodUnitDetailed(this.wishListService.getFoodUnitsDetailed());
-    this.wishListService.deleteAll();
+     this.fridgeContainerService.addAllFoodUnitDetailed(this.wishListService.foodUnitsDetailed);
+     this.wishListService.deleteAll();
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

@@ -3,19 +3,13 @@
     <button
       class="btn btn-success"
       style="margin:8px;"
-      (click)="showMyFridges()"
-    >Show your fridges</button>
-
-    <button
-      class="btn btn-success"
-      style="margin:8px;"
-      (click)="onSearchSelected()"
+      (click)="onSelected('new')"
     >Add new fridge</button>
 
     <button
       class="btn btn-success"
       style="margin:8px;"
-      (click)="onNewFridgeSelected()"
+      (click)="onSelected('search')"
     >Search for a fridge</button>
   </div>
 </div>

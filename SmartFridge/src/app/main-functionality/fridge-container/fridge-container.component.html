@@ -14,7 +14,7 @@
       <a
         class="list-group-item"
         style="..."
-        *ngFor="let foodUnitDetailed of foodUnitsDetailed  | name:searchedName:'name':'storeLocation' | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index"
+        *ngFor="let foodUnitDetailed of foodUnitsDetailed  | name:searchedName:'name':'storeLocation' | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index "
         [ngStyle]="{backgroundColor: getColor(foodUnitDetailed), color: 'white'}"
         (click)="onEditItem(i)"
       >

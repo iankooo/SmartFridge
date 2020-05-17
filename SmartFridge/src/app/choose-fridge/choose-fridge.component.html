@@ -5,13 +5,13 @@
     ></app-fridge-list>
   </div>
 
-  <div class="col-md-7" *ngIf="loadedOption == 'list'">
+  <div class="col-md-7" *ngIf="loadedOption === 'list'">
     <app-fridge-detail
       *ngIf="selectedFridge"
       [fridge]="selectedFridge"></app-fridge-detail>
   </div>
 
-  <div class="col-md-7" *ngIf="loadedOption == 'new'">
+  <div class="col-md-7" *ngIf="loadedOption === 'search'">
     <form class="text-center"
           #searchFridgeForm="ngForm"
           (ngSubmit)="searchForAFridge(searchFridgeForm)">
@@ -55,7 +55,7 @@
     </form>
   </div>
 
-  <div class="col-md-7" *ngIf="loadedOption == 'search'">
+  <div class="col-md-7" *ngIf="loadedOption === 'new'">
     <form class="text-center"
           #newFridgeForm="ngForm"
           (ngSubmit)="saveThisFridge(newFridgeForm)">

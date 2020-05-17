@@ -1,14 +1,10 @@
-import {Injectable, NgZone} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Subject, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {User} from './user.model';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
-import * as firebase from 'firebase';
-import * as admin from 'firebase-admin';
-import {RegLogComponent} from './reg-log.component';
 import {Global} from '../shared/global';
 
 export interface ReglogResponseData {
@@ -28,15 +24,12 @@ export class AuthService {
   private theUser = new Subject<User>();
 
   forDeletePurpose: User;
-  private usersRef: any;
   private tokenExpirationTimer: any;
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    public afs: AngularFirestore,
     private afAuth: AngularFireAuth,
-    public ngZone: NgZone,
     public global: Global) {
       this.afAuth.authState.subscribe(user => {
         if (user) {
@@ -49,9 +42,6 @@ export class AuthService {
         }
       });
   }
-
-  // constructor(private http: HttpClient, private router: Router) {}
-
 
   get user(): Subject<User> {
     return this.theUser;
@@ -104,7 +94,6 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
     this.theUser.next(user);
-    // this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
     this.forDeletePurpose = user;
     this.global.userEmail = user.email;
@@ -137,7 +126,7 @@ export class AuthService {
       tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData'));
 
-    console.log(userData);
+    // console.log(userData);
 
     if (!userData) {
       return;
@@ -149,34 +138,17 @@ export class AuthService {
       userData.token,
       +new Date(userData.tokenExpirationDate)
     );
-
-    // const loadedUser = new User(
-    //   userData.email,
-    //   userData.id,
-    //   userData.token,
-    //   new Date(userData.tokenExpirationDate)
-    // );
-    //
-    // if (loadedUser.token) {
-    //   this.theUser.next(loadedUser);
-    // }
-
   }
 
   logout() {
     this.user.next(null);
     localStorage.removeItem('userData');
+    localStorage.removeItem('selectedFridgeKey');
     this.router.navigate(['/reglog']);
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
-  }
-
-  autoLogout(expirationDuration: number) {
-    this.tokenExpirationTimer = setTimeout( () => {
-      this.logout();
-    }, expirationDuration);
   }
 
   forgotPassword(email: string) {
@@ -187,5 +159,4 @@ export class AuthService {
         window.alert(error);
       });
   }
-
 }

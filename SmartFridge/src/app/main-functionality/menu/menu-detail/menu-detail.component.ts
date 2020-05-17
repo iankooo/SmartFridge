@@ -13,7 +13,7 @@ import {MapsAPILoader} from '@agm/core';
 export class MenuDetailComponent implements OnInit {
   @Input() isOn: boolean;
   @Output() isOff = new EventEmitter<boolean>();
-  @Input() foodUnit: FoodUnit;
+  @Input() foodUnit: FoodUnit = new FoodUnit('', '', '', 0, 0, 0);
   @Input() expirationDate: string;
   quantitySizeInputRef = '';
   storeLocation;
@@ -81,6 +81,12 @@ export class MenuDetailComponent implements OnInit {
           this.aux = '';
           this.textShow = false;
           this.storeLocation = '';
+          this.foodUnit.name = '';
+          this.foodUnit.imagePath = '';
+          this.foodUnit.description = '';
+          this.foodUnit.nrOfExpirationDays = 0;
+          this.foodUnit.nrOfExpirationMonths = 0;
+          this.foodUnit.nrOfExpirationMonths = 0;
         }
       );
   }

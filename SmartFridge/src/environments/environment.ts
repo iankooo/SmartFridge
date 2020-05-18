@@ -11,6 +11,9 @@ export const environment = {
     projectId: 'smartfridge-73a88',
     storageBucket: 'smartfridge-73a88.appspot.com',
     messagingSenderId: '661452086874'
+  },
+  googleAPI: {
+    apiKey: 'AIzaSyDvlMuez85UtA5nDGYoZznQn_gJkaXDPNM'
   }
 };
 /*

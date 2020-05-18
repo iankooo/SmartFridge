@@ -27,7 +27,7 @@ import { FridgeContainerEditComponent } from './main-functionality/fridge-contai
 import {WishListService} from './main-functionality/wish-list/wish-list.service';
 import { GoogleApiComponent } from './main-functionality/menu/menu-detail/google-api/google-api.component';
 import {AgmCoreModule} from '@agm/core';
-import { RouterModule, Routes} from '@angular/router';
+import { RouterModule} from '@angular/router';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
@@ -71,7 +71,7 @@ import {NamePipe} from './main-functionality/name.pipe';
     MatMomentDateModule,
     MatDatepickerModule,
     AgmCoreModule.forRoot({
-      apiKey: '',
+      apiKey: environment.googleAPI.apiKey,
       libraries: ['places']
     }),
     HttpClientModule,
